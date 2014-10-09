@@ -14,6 +14,7 @@
 		<script src="js/mui.js"></script>
 		<script src="js/jquery-1.10.2.js" type="text/javascript" charset="utf-8"></script>
 		<script src="plugins/layer.m/layer.m.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/utils.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
 	<body>
@@ -70,7 +71,14 @@
 					}
 				})*/
 			});
+
+			
 			mui.plusReady(function() {
+				/*localStorage.setItem("data","{data:[{year:2013,things:[]}]}")
+				var data = localStorage.getItem("data");
+				data = (new Function("return "+data))();
+				console.log(data.data[0].year);*/ 
+				//localStorage.clear();
 				//首页返回键处理
 				//处理逻辑：1秒内，连续两次按返回键，则退出应用；
 				var first = null;

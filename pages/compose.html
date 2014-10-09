@@ -5,8 +5,12 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
-		<script src="../js/mui.min.js"></script>
+		
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		
+		<script src="../js/jquery-1.10.2.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/utils.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css">
 			
 		</style>
@@ -15,36 +19,35 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<button class="mui-btn mui-btn-link mui-btn-nav mui-pull-left mui-action-back">
-				<span class="mui-icon mui-icon-left-nav"></span>
-				返回
+				<span class="mui-icon mui-icon-left-nav"></span>返回
 			</button>
 			<h1 class="mui-title">新增</h1>
 		</header>
 		<div class="mui-content">
-			<form class="mui-input-group ">
+			<form class="mui-input-group " onsubmit="rentrun false">
 				<br />
 				<br />
 				<br />
 				<br />
 				<div class="mui-input-row">
 					<label>Input</label>
-					<input type="text" placeholder="普通输入框">
+					<input type="text" id="title" placeholder="用途">
 				</div>
 				<br />
 				<div class="mui-input-row">
 					<label>Input</label>
-					<input type="text" placeholder="普通输入框">
+					<input type="text" id="money" placeholder="金额">
 				</div>
 				<br />
 				<div class="mui-input-row" style="margin: 10px 5px;">
-					<textarea rows="5" placeholder="多行文本框"></textarea>
+					<textarea rows="5" id="note" placeholder="备注"></textarea>
 				</div>
 				<br />
 				<div class="mui-button-row">
-					<button class="mui-btn mui-btn-primary" onclick="return false;">
+					<button class="mui-btn mui-btn-primary" onclick="storageData()">
 						<span class="mui-icon mui-icon-compose"></span>&nbsp;确认
 					</button>&nbsp;&nbsp;
-					<button class="mui-btn mui-btn-primary" onclick="return false;">
+					<button class="mui-btn mui-btn-primary" onclick="mui.back();">
 						<span class="mui-icon mui-icon-close"></span>&nbsp;取消
 					</button>
 				</div>
@@ -52,9 +55,33 @@
 		</div>
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
-
+			var jq = jQuery.noConflict();
+			
 			mui.plusReady(function() {
-
+				window.storageData = function() {
+					var date = new Date(),
+						t = jq("#title").val(),
+						m = jq("#money").val(),
+						n = jq("#note").val(),
+						data = localStorage.getItem("data") || {
+							data:{}
+						},
+						y = date.getFullYear(),
+						mon = date.getMonth() + 1,
+						day = date.getDate(),
+						obj = {dateTime:y+mon,month:mon,title:t,detail:n,day:day},
+						save = {};
+					if (typeof data != "object") {
+						data = (new Function("return " + data))();
+					}
+					if (!data.data[y]) {
+						data.data[y] = [];
+					}
+					data.data[y].push(obj);
+					console.log(o2s(data));
+					window.localStorage.setItem("data",o2s(data));
+					mui.back();
+				}
 			});
 		</script>
 	</body>

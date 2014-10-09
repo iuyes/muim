@@ -13,35 +13,27 @@
 		<script type="text/javascript" src="../plugins/laytpl/laytpl-1.1.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
-			var data ={
-				data:[
-					{year:2013,things:[
-						{dateTime:"2013-03",month:"March",year:2013,title:"The FAW",detail:"Award(Miami. FL)"},
-						{dateTime:"2013-03",month:"March",year:2013,title:"The FAW",detail:"Award(Miami. FL)"},
-						{dateTime:"2013-03",month:"March",year:2013,title:"The FAW",detail:"Award(Miami. FL)"},
-						{dateTime:"2013-03",month:"March",year:2013,title:"The FAW",detail:"Award(Miami. FL)"}
-					]},
-					{year:2012,things:[
-						{dateTime:"2013-03",month:"March",year:2013,title:"The FAW",detail:"Award(Miami. FL)"}
-					]}
-				]
-			}
+			
+		
 		</script>
 		<script id="show_tpl" type="text/html">
-
-	{{# for(var i = 0, len = d.data.length; i < len; i++){ }}
+	{{# var colorArr = ["red","blue","green","yellow","purple"]}}
+	{{# for(var k in d.data){ }}
 			<article>
-		<h3>{{d.data[i].year}}</h3>
-		{{# for(var j = 0;j<d.data[i].things.length ;j++){ }}
-		<section>
-			<span class="point-time point-yellow"></span>
-			<time datetime="{{ d.data[i].things[j].dateTime }}">
-				<span>{{ d.data[i].things[j].month }}</span>
-				<span>{{ d.data[i].things[j].year }}</span>
+		<h3>{{k}}</h3>
+		{{# for(var j = 0;j<d.data[k].length ;j++){ 
+			var ci = Math.ceil(Math.random()*4);
+ 			console.log(ci);  
+		}} 
+		<section>   
+			<span class="point-time point-{{colorArr[ci]}}"></span>
+			<time datetime="{{ d.data[k][j].dateTime }}">
+				<span>{{ d.data[k][j].month }}</span>
+				<span>{{ d.data[k][j].day }}</span>
 			</time>
 			<aside>
-				<p class="things">{{ d.data[i].things[j].title }}</p>
-				<p class="brief">{{ d.data[i].things[j].detail }}</p>
+				<p class="things">{{ d.data[k][j].title }}</p>
+				<p class="brief">{{ d.data[k][j].detail }}</p>
 			</aside>
 		</section>
 		{{# } }}
@@ -53,7 +45,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<button class="mui-btn mui-btn-link mui-btn-nav mui-pull-left mui-action-back">
+			<button class="mui-btn mui-btn-link mui-btn-nav mui-pull-left  mui-action-back">
 				<span class="mui-icon mui-icon-left-nav"></span>
 				<label>返回</label>
 			</button>
@@ -65,7 +57,11 @@
 		</div>
 		<script type="text/javascript">
 			var jq = jQuery.noConflict();
+
 			mui.plusReady(function() {
+				var data = localStorage.getItem("data");
+				data = (new Function("return "+data))();
+				console.log(data);
 				var gettpl = document.getElementById('show_tpl').innerHTML;
 				laytpl(gettpl).render(data, function(html){
     			document.getElementById('tpl_view').innerHTML = html;
