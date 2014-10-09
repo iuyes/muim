@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../plugins/timeline/timeline.css" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		
+		<script src="../js/jquery-1.10.2.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../plugins/laytpl/laytpl-1.1.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			var data ={
+				data:[
+					{year:2013,things:[
+						{dateTime:"2013-03",month:"March",year:2013,title:"The FAW",detail:"Award(Miami. FL)"},
+						{dateTime:"2013-03",month:"March",year:2013,title:"The FAW",detail:"Award(Miami. FL)"},
+						{dateTime:"2013-03",month:"March",year:2013,title:"The FAW",detail:"Award(Miami. FL)"},
+						{dateTime:"2013-03",month:"March",year:2013,title:"The FAW",detail:"Award(Miami. FL)"}
+					]},
+					{year:2012,things:[
+						{dateTime:"2013-03",month:"March",year:2013,title:"The FAW",detail:"Award(Miami. FL)"}
+					]}
+				]
+			}
+		</script>
+		<script id="show_tpl" type="text/html">
+
+	{{# for(var i = 0, len = d.data.length; i < len; i++){ }}
+			<article>
+		<h3>{{d.data[i].year}}</h3>
+		{{# for(var j = 0;j<d.data[i].things.length ;j++){ }}
+		<section>
+			<span class="point-time point-yellow"></span>
+			<time datetime="{{ d.data[i].things[j].dateTime }}">
+				<span>{{ d.data[i].things[j].month }}</span>
+				<span>{{ d.data[i].things[j].year }}</span>
+			</time>
+			<aside>
+				<p class="things">{{ d.data[i].things[j].title }}</p>
+				<p class="brief">{{ d.data[i].things[j].detail }}</p>
+			</aside>
+		</section>
+		{{# } }}
+	</article>
+	{{# } }}
+
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<button class="mui-btn mui-btn-link mui-btn-nav mui-pull-left mui-action-back">
+				<span class="mui-icon mui-icon-left-nav"></span>
+				<label>返回</label>
+			</button>
+			<h1 class="mui-title">查看</h1>
+		</header>
+		<div class="mui-content">
+			<div class="content" id="tpl_view">
+			</div>
+		</div>
+		<script type="text/javascript">
+			var jq = jQuery.noConflict();
+			mui.plusReady(function() {
+				var gettpl = document.getElementById('show_tpl').innerHTML;
+				laytpl(gettpl).render(data, function(html){
+    			document.getElementById('tpl_view').innerHTML = html;
+				});
+			});
+		</script>
+	</body>
+
+</html>

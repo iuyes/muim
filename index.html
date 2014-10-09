@@ -1,75 +1,97 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
-		<title>Hello MUI</title>
+		<title id="title">Hello MUI</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 		<link rel="stylesheet" href="css/mui.css" type="text/css">
-		<link rel="stylesheet" type="text/css" href="plugins/artdialog/css/ui-dialog.css"/>
+		<link rel="stylesheet" type="text/css" href="plugins/artdialog/css/ui-dialog.css" />
 
 		<script src="js/mui.js"></script>
 		<script src="js/jquery-1.10.2.js" type="text/javascript" charset="utf-8"></script>
-		<script src="plugins/artdialog/js/dialog-plus.js" type="text/javascript" charset="utf-8"></script>
+		<script src="plugins/layer.m/layer.m.js" type="text/javascript" charset="utf-8"></script>
 	</head>
-	<body> 
+
+	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a id="info" class="mui-icon mui-icon-info-filled mui-pull-right" style="color: #999;"></a>
 			<h1 class="mui-title">Hello mui</h1>
 		</header>
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="#tabbar">
+				<span class="mui-icon mui-icon-person-filled"></span>
+				<span class="mui-tab-label">个人</span>
+			</a>
+			<a class="mui-tab-item" href="#tabbar-with-chat">
+				<span class="mui-icon mui-icon-home-filled"></span>
+				<span class="mui-tab-label">主页</span>
+			</a>
+
+			<a class="mui-tab-item" href="#tabbar-with-map">
+				<span class="mui-icon mui-icon-gear-filled"></span>
+				<span class="mui-tab-label">设置</span> 
+			</a>
+		</nav>
 		<script>
 			mui.init({
-				swipeBack : false,
-				subpages : [{
-					id : 'list',
-					url : 'list.html',
-					styles : {
-						top : '48px',
-						bottom : 0,
-						bounce :'vertical'
-						//scrollIndicator : "none"
+				swipeBack: false,
+				subpages: [{
+					id: 'list',
+					url: 'list.html',
+					styles: {
+						top: '48px',
+						bottom: '50px',
+						bounce: 'vertical'
+							//scrollIndicator : "none"
 					}
 				}]
 			});
 			document.getElementById('info').addEventListener('tap', function() {
-			
-				mui.openWindow({
-					url:'pages/info.html',
-					id:'info',
-					styles:{
-						background:'#333',
-						opacity:0.7
-						
+
+				layer.open({
+					content: '您好',
+					style: 'background-color:#09C1FF; color:#fff; border:none;z-index:99999',
+					time: 5
+				});
+				/*mui.openWindow({
+					url: 'pages/info.html',
+					id: 'info',
+					styles: {
+						background: '#333'  
+						//opacity: 0.7
+
 					},
-					show:{
-						aniShow:'zoom-out'
+					show: {
+						aniShow: 'zoom-out'
 					}
-				})
-			});   
-			
+				})*/
+			});
 			mui.plusReady(function() {
 				//首页返回键处理
 				//处理逻辑：1秒内，连续两次按返回键，则退出应用；
 				var first = null;
-				plus.key.addEventListener('backbutton', function(){
+				plus.key.addEventListener('backbutton', function() {
 					//首次按键，提示‘再按一次退出应用’
-					if(!first){
+					if (!first) {
 						first = new Date().getTime();
 						mui.toast('再按一次退出应用');
-						setTimeout(function(){
+						setTimeout(function() {
 							first = null;
-						},1000);
-					}else{
-						if(new Date().getTime()-first<1000){
+						}, 1000);
+					} else {
+						if (new Date().getTime() - first < 1000) {
 							plus.runtime.quit();
 						}
 					}
 				}, false);
 			});
-			
 		</script>
+
 	</body>
+
 </html>
 
